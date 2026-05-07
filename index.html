@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Geometry Calculator</title>
+</head>
+<body>
+    <h1>Geometry Calculator</h1>
+    <label>Shape:</label>
+    <select id="shape">
+        <option value="circle">Circle</option>
+        <option value="rectangle">Rectangle</option>
+    </select>
+    <br><br>
+    <input id="param1" placeholder="Value 1 (e.g. radius)" type="number">
+    <input id="param2" placeholder="Value 2 (rectangle only)" type="number">
+    <br><br>
+    <button onclick="calculate()">Calculate</button>
+    <p id="result"></p>
+
+    <script>
+        async function calculate() {
+            const shape = document.getElementById('shape').value;
+            const p1 = parseFloat(document.getElementById('param1').value);
+            const p2 = parseFloat(document.getElementById('param2').value);
+
+            const functionUrl = "BURAYA_SONRA_URL_GELECEK";
+
+            const response = await fetch(functionUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ shape, param1: p1, param2: p2 })
+            });
+            const data = await response.json();
+            document.getElementById('result').innerText = "Area: " + data.result;
+        }
+    </script>
+</body>
+</html>
